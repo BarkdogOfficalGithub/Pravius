@@ -4,8 +4,6 @@ var validator = require('validator');
 
 var config = require('./config');
 
-var info = config.appinfo;
-
 var client = redis.createClient(config.redis.port, config.redis.host, {
         auth_pass: config.redis.pass
     }
@@ -19,10 +17,13 @@ exports.submit = function(req, res) {
     
     var link = req.body.link;
     
+    if (link && link.substring(0, 'http'.length) != 'http') {
+      link = 'http://' + link;
+    }
+    
     if (!link || !validator.isURL(link, config.urloptions)) {
         console.log(req.params.link + " Not okay!");
         res.render('index', {
-            info: info,
             error: true,
             errorMsg: 'That\'s not a valid link'
         });
@@ -32,7 +33,6 @@ exports.submit = function(req, res) {
     shorten.shorten(link, function(response){
         if (response.status != 'OK') {
             res.render('index', {
-                info: info,
                 error: true,
                 errorMsg: 'Something went wrong! D:'
             });
@@ -41,10 +41,8 @@ exports.submit = function(req, res) {
         }
 
         id = response.id;
-        console.log(response.long + ' -> ' + response.id);
-
+        
         res.render('index', {
-            info: info,
             done: true,
             link: config.setup.host + '/' + response.id
         });
@@ -58,7 +56,6 @@ exports.expand = function(req, res) {
     
     if (!id) {
         res.render('index', {
-            info: info,
             error: true,
             errorMsg: 'That\'s not a valid link'
         });
@@ -69,7 +66,6 @@ exports.expand = function(req, res) {
     
         if (response.status != 'OK') {
             res.render('index', {
-                info: info,
                 error: true,
                 errorMsg: 'The link you tried to access has been deleted or never existed.'
             });

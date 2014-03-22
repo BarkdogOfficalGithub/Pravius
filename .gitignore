@@ -4,6 +4,7 @@ config.js
 
 node_modules/
 mnt/
+certs/
 
 lib-cov
 *.seed
@@ -13,6 +14,7 @@ lib-cov
 *.out
 *.pid
 *.gz
+*.db
 
 pids
 logs

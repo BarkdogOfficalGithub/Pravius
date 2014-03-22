@@ -1,23 +1,33 @@
+var fs = require('fs');
+
+exports.devel = false;
+
 exports.appinfo = {
-    name: "Pravius",
-    version: "1.0",
+    title: "Pravius",
+    version: "1.1",
     author: "Pravian Systems",
-    description: "Shortify your link with a click!"
+    shortDescription: "Shortify your link!",
+    longDescription: "Pravius, shortify your link with a click!"
+        + "Super short URLs are easy to remember."
 };
 
 exports.setup = {
-    port: 8080,
-    host: 'http://mysite.com' // No trailing slash
+    host: 'https://pravi.us', // No trailing slash
+    https: {
+        key: fs.readFileSync('certs/your.private.key'),
+        cert: fs.readFileSync('certs/your.cert.crt'),
+        ca: fs.readFileSync('certs/your.ca.crt')
+    }
 };
 
 exports.redis = {
-    host: 'redis.com',
+    host: 'nope.chuck.testa.com',
     port: 1234,
-    pass: 'mypass'
+    pass: 'Ha,no'
 };
 
 exports.urloptions = {
-    protocols: ['http','https'],
+    protocols: ['http', 'https'],
     require_tld: true,
-    require_protocol: false
+    require_protocol: true
 };
