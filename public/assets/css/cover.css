@@ -120,10 +120,13 @@ body {
 /*
  * Footer
  */
-
 .mastfoot {
   color: #999; /* IE8 proofing */
   color: rgba(255,255,255,.5);
+}
+
+.right {
+    text-align: right;
 }
 
 
@@ -155,9 +158,12 @@ body {
 
 @media (min-width: 992px) {
   .masthead,
-  .mastfoot,
+  /*.mastfoot,*/
   .cover-container {
     width: 700px;
+  }
+  .mastfoot {
+	width: 100%;
   }
 }
 body {

@@ -46,6 +46,11 @@ app.get('/', function(req, res) {
     res.render('index');
 });
 
+// Render privacy page
+app.get('/privacy', function(req, res) {
+    res.render('privacy');
+});
+
 // Handle expanding, shortening and the API
 app.get('/:id', shorten.expand);
 app.post('/submit', shorten.submit);
