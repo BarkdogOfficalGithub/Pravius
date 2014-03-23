@@ -1,5 +1,6 @@
 var http = require('http');
-var https = require('https');
+//var https = require('https');
+var spdy = require('spdy');
 var path = require('path');
 var express = require('express');
 var ejs = require('ejs');
@@ -72,7 +73,7 @@ var main = function() {
     
     var httpsServer;
     if (!devel) {
-        var httpsServer = https.createServer(config.setup.https, app);
+        var httpsServer = spdy.createServer(config.setup.https, app);
     }
     
     var httpPort = 80;
@@ -88,7 +89,7 @@ var main = function() {
     
     if (!devel) {
         httpsServer.listen(httpsPort, function() {
-            console.log("HTTPS server listening on port " + httpsPort);
+            console.log("SPDY/HTTPS server listening on port " + httpsPort);
         });
     }
 };
