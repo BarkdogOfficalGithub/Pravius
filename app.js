@@ -4,6 +4,7 @@ var spdy = require('spdy');
 var path = require('path');
 var express = require('express');
 var ejs = require('ejs');
+var minify = require('express-minify');
 
 var config = require('./config');
 var shorten = require('./shorten');
@@ -19,6 +20,7 @@ app.set('view engine', 'html');
 app.locals(info);
 //app.enable('view cache');
 
+app.use(express.compress());
 app.use(express.favicon(path.join(__dirname, 'public/favicon.ico'))); 
 
 // Logger
@@ -30,7 +32,6 @@ if (devel) {
 }
 
 // Parse POST data
-app.use(express.compress());
 app.use(express.urlencoded());
 app.use(express.json());
 
@@ -58,6 +59,7 @@ app.post('/submit', shorten.submit);
 app.post('/api/:action', api.action);
 
 // Serving statics
+app.use(minify({cache: __dirname + '/cache'})); // Minify javascript, css, etc
 app.use(express.static(__dirname + '/public'));
 
 // Error handling

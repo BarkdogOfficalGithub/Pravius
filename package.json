@@ -1,0 +1,29 @@
+{
+  "name": "Pravius",
+  "version": "1.0.0",
+  "description": "Shortify your links with a click!",
+  "main": "app.js",
+  "dependencies": {
+    "ejs": "~0.8.5",
+    "express-minify": "~0.0.7",
+    "redis": "~0.10.1",
+    "shrtn": "~0.0.4-3",
+    "spdy": "~1.24.0",
+    "validator": "~3.5.0",
+    "express": "~3.4.8"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Pravian/Pravius.git"
+  },
+  "author": "Pravian Systems",
+  "license": "All rights Reserved",
+  "bugs": {
+    "url": "https://github.com/Pravian/Pravius/issues"
+  },
+  "homepage": "https://github.com/Pravian/Pravius"
+}

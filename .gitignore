@@ -5,6 +5,7 @@ config.js
 node_modules/
 mnt/
 certs/
+cache/
 
 lib-cov
 *.seed
