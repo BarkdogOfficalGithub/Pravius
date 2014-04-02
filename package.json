@@ -7,10 +7,11 @@
     "ejs": "~0.8.5",
     "express-minify": "~0.0.7",
     "redis": "~0.10.1",
-    "shrtn": "~0.0.4-3",
     "spdy": "~1.24.0",
     "validator": "~3.5.0",
-    "express": "~3.4.8"
+    "express": "~3.4.8",
+    "express-params": "0.0.3",
+    "nodemailer": "~0.6.1"
   },
   "devDependencies": {},
   "scripts": {

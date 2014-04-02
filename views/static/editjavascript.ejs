@@ -1,0 +1,111 @@
+<script src="/assets/js/moment.min.js"></script>
+
+<script>
+function isValidId(text) {
+    if (text.length < 3 || text.length > 10) {
+        return false;
+    }
+    
+    return true;
+}
+
+function isValidUrl(url) {
+    var regExp = /^(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?$/;
+
+    return regExp.test(url);
+}
+
+$(function() {
+    
+    // Init tooltip
+    $('#linkdisplay').tooltip();
+    
+    // Select entire link on click
+    $('#linkdisplay').click(function() {
+        $(this).select();
+    });
+    
+    // Show tooltip when focussing
+    $('#linkdisplay').focusin(function() {
+        $(this).tooltip('show');
+    });
+    
+    
+    // Hide tooltip when focussing something else
+    $('#linkdisplay').focusout(function() {
+        $(this).tooltip('hide');
+    });
+    
+    // Select the link
+    $('#linkdisplay').focus();
+    
+    $('#linkdisplay').keydown(function(event) {
+        if (event.keyCode == 17 // CTRL + C
+            || event.keyCode == 67) {
+            return;
+        }
+        
+        event.preventDefault();
+        $('#linkdisplaydiv').hide();
+        $('#linkeditdiv').show();
+        $('#linkedit').focus();
+    });
+    
+    $('#linkedit').focusout(function() {
+        $('#linkdisplaydiv').show();
+        $('#linkeditdiv').hide();
+		
+		if (isValidId($('#linkedit').val()) && $('#linkedit').val() != $('#oldid').val()) {
+            $('#linkdisplay').val($('#host').html() + $('#linkedit').val());
+            $('#submit').prop("disabled", false);
+        }
+    });
+	
+	$('#linkedit').keydown(function(event) {
+		if (event.keyCode != 13) { // Enter
+            return;
+        }
+        
+        if (isValidId($('#linkedit').val())) {
+            $('#linkdisplay').val($('#host').html() + $('#linkedit').val());
+            $('#submit').prop("disabled", false);
+        } else {
+            // Invalid; reset to original id
+            $('#linkedit').val($("#oldid").val())
+            $('#linkdisplay').val($('#host').html() + $("#oldid").val());
+        }
+        
+        $('#linkdisplaydiv').show();
+        $('#linkeditdiv').hide();
+        event.preventDefault();
+	});
+    
+    $('#linkedit').keyup(function(event) {
+        if (!isValidId($('#linkedit').val())) {
+			$('#submit').prop("disabled", true);
+		}
+    });
+    
+    $('#long').keypress(function() {
+        if ($('#long').val() == $('#oldlong').val()) {
+            $('#longdiv').removeClass("has-error");
+            return;
+        }
+        
+        if (!isValidUrl($('#long').val())) {
+            $('#submit').prop("disabled", true);
+            $('#longdiv').addClass("has-error");
+        } else {
+            $('#longdiv').removeClass("has-error");
+            $('#submit').prop("disabled", false);
+        }
+    });
+    
+    // Hide the edit box
+    $('#linkeditdiv').hide();
+    
+    // Format dates
+    moment.lang('en-UK')
+    $('#created').html(moment.unix(Number($('#created').html())).fromNow());
+});
+</script>

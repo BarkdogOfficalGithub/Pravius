@@ -1,0 +1,55 @@
+
+<script>
+var defaultOption = $("#option option:selected" ).text();
+function isValidForm() {
+    var message = $('#message').val();
+    var name = $('#name').val();
+    var option = $("#option option:selected" ).text();
+    
+    return message.length > 20
+        && option != defaultOption
+        && name.length > 7
+        && name.split(" ").length > 1
+        && /^([0-9a-zA-Z].*?@([0-9a-zA-Z].*\.\w{2,4}))$/.test($('#email').val());
+}
+
+$(function() {
+    var functionCheck = function(event) {
+		if (isValidForm()) {
+            $('#submit').prop("disabled", false);
+        } else {
+            $('#submit').prop("disabled", true);
+        }
+	};
+
+    $('input[type="text"]').keyup(functionCheck);
+    $('#message').keyup(functionCheck);
+    $('#option').change(functionCheck);
+    $('#option').change(function() {
+        var option = $("#option option:selected" ).text();
+        if(option.indexOf("secret") != -1) {
+            $('#createddiv').show();
+        } else {
+            $('#createddiv').hide();
+            $('#created').val("");
+        }
+        
+        if(option.indexOf("donate") != -1) {
+            $('#namediv').hide();
+            $('#emaildiv').hide();
+            $('#messagediv').hide();
+            $('#buttonsdiv').hide();
+            $('#paypal').show();
+        } else {
+            $('#namediv').show();
+            $('#emaildiv').show();
+            $('#messagediv').show();
+            $('#buttonsdiv').show();
+            $('#paypal').hide();
+        }
+    });
+    
+    $('#createddiv').hide();
+    $('#paypal').hide();
+});
+</script>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    </head>
+    <body>
+        Someone has applied for a one/two character URl on <%= host %>.<br /><br />
+        
+        Here's the information regarding the request:<br /><br />
+        
+        Applicant URL: <a href="<%= host %>/<%= data.oldid %>"><%= host %>/<%= data.oldid %></a><br /><br />
+       
+        Application URL pointing to: <a href="<%= data.oldlong %>"><%= data.oldlong %></a><br /><br />
+        
+        Requested ID: <%= data.newid %> (<a href="<%= host %>/<%= data.newid %>"><%= host %>/<%= data.newid %></a>)<br /><br />
+        
+        Business URL: <a href="<%= data.businesslong %>"><%= data.businesslong %></a><br /><br />
+        
+        Additional Information:<br />
+        <%= data.additionalinfo %><br /><br />
+        
+        Contact Email: <%= data.email %><br /><br />
+        
+        (Message sent by Pravi.us Node.js APP)
+    </body>
+</html>

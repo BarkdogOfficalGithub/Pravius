@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <% include static/head %>
+    </head>
+    <body>
+        <div class="site-wrapper">
+            <div class="site-wrapper-inner">
+                <div class="cover-container">
+                    <div class="masthead clearfix">
+                        <div class="inner">
+                            <a href="/"><h3 class="masthead-brand"><%= title %></h3></a>
+                            <ul class="nav masthead-nav">
+                                <li><a href="/">Shortify</a></li>
+								<li><a href="/about">About</a></li>
+                                <li><a href="/contact">Contact</a></li>
+                                <li><a href="https://github.com/Pravian">Github</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+				
+                <div class="title"><h2>Get an even shorter link!</h2></div>
+				<div class="well-stats well-lg">
+                
+                    <% if (typeof okay != "undefined" && okay) { %>
+                        <div class="alert alert-success">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <strong>Done!</strong> <%- okayMsg -%>
+                        </div>
+                    <% } %>
+                
+					<% if (typeof error != "undefined" && error) { %>
+                        <div class="alert alert-danger">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <strong>Error!</strong> <%= errorMsg %>
+                        </div>
+					<% } %>
+                    
+                    <% if (!(typeof okay != "undefined" && okay)) { %>
+                    Certain brands and companies may request even shorter URLs to promote their company. These URLs are are one or two characters long and may contain upper-case,
+                    lower-case and numerical characters. Note that extra short URLs are used as an alternative to your current URL. Meaning  <i><%= host %>/<%= data.id %></i> will keep on working. Both URLs can then be used to access your site.
+                    <% } %>
+                    <hr />
+                
+                    <form class="form-horizontal" role="form" action="/<%= data.id %>/<%= data.secret %>/evenshorter" method="POST">
+                        
+                        <% if (!(typeof okay != "undefined" && okay)) { %>
+                        
+                        <input type="hidden" name="oldid" id="oldid" value="<%= data.id %>">
+                        <input type="hidden" name="oldlong" id="oldlong" value="<%= data.long %>">
+                        
+                        <div class="form-group" id="currentdiv">
+                            <label class="col-sm-2 control-label">Current URL</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" value="<%= host %>/<%= data.id %>" disabled>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" id="linkeditdiv">
+                            <label for="newid" class="col-sm-2 control-label">Requested URL</label>
+                            <div class="col-sm-5">
+                                <div class="input-group">
+                                    <span id="host" class="input-group-addon"><%= host %>/</span>
+                                    <input type="text" class="form-control" id="newid" name="newid">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" id="longdiv">
+                            <label for="businesslong" class="col-sm-2 control-label">Business URL</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="businesslong" name="businesslong" value="<%= data.long %>">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" id="emaildiv">
+                            <label for="email" class="col-sm-2 control-label">Email</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="email" name="email" placeholder="joe@example.com">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" id="infodiv">
+                            <label for="additionalinfo" class="col-sm-2 control-label">Additional Information</label>
+                            <div class="col-sm-5">
+                            
+                                <textarea name="additionalinfo" placeholder="Type any additional comments here..."
+                                class="form-control" cols="51" rows="3"></textarea>
+                            </div>
+                        </div>
+                        
+                        <% } %>
+                        
+                        <div class="form-group">
+                        
+                            <% if (!(typeof okay != "undefined" && okay)) { %>
+                            <div class="col-sm-offset-2 col-sm-2">
+                                <input type="submit" name="save" id="submit" class="btn btn-lg btn-info" value="Submit" disabled>
+                            </div>
+                            <% } %>
+                            
+                            <div class="col-sm-2">
+								<a href="/<%= data.id %>/<%= data.secret %>" class="btn btn-lg btn-info">Back</a>
+							</div>
+                        </div>
+               
+                    </form>
+                </div>
+                
+                
+                <% include static/footer %>
+            </div>
+        </div>
+        <% include static/javascript %>
+        <% include static/evenshorterjavascript %>
+    </body>
+</html>

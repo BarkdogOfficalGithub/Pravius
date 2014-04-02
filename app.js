@@ -1,88 +1,99 @@
 var http = require('http');
-//var https = require('https');
 var spdy = require('spdy');
 var path = require('path');
 var express = require('express');
 var ejs = require('ejs');
 var minify = require('express-minify');
+var params = require('express-params');
 
 var config = require('./config');
-var shorten = require('./shorten');
-var api = require('./api');
+var router = require('./router');
+var db = require('./db');
 
-var info = config.appinfo;
 var devel = config.devel;
+
 var app = express();
 
+//
+// ----- SETUP -----
+//
 app.engine('html', ejs.__express);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'html');
-app.locals(info);
-//app.enable('view cache');
 
-app.use(express.compress());
-app.use(express.favicon(path.join(__dirname, 'public/favicon.ico'))); 
+app.locals(config.appinfo);
+app.locals({
+    host: config.setup.host,
+    getLength: db.getLength
+});
 
-// Logger
-if (devel) {
-    app.use(function(req, res, next){
-        console.log('%s %s', req.method, req.url);
-        next();
+// Setup params
+params.extend(app);
+app.param('id', /^([a-zA-Z0-9\-]){1,15}$/);
+app.param('secret', /^([a-zA-Z0-9\-]){5,7}$/);
+
+
+//
+// ----- MIDDLEWARE -----
+//
+if (!devel) {
+    app.use(function(req, res, next) {
+        if (req.protocol == "https") {
+            return next();
+        }
+        
+        res.redirect('https://' + req.get('host') + req.url);
     });
 }
 
-// Parse POST data
+
+// First, compress data and send favicon
+app.use(express.compress());
+app.use(express.favicon(path.join(__dirname, 'public/favicon.ico'))); 
+
+// Then parse POST data
 app.use(express.urlencoded());
 app.use(express.json());
 
-// All GET requests should be over HTTPS
-app.get('*', function(req, res, next) {
-    if (!req.secure) {
-        return res.redirect('https://' + req.get('host') + req.url);
-    }
-    next();
-});
+// Routes (eg. .get, .post, .get, etc) before other middleware
+app.use(app.router);
 
-// Render main page
-app.get('/', function(req, res) {
-    res.render('index');
-});
-
-// Render privacy page
-app.get('/privacy', function(req, res) {
-    res.render('privacy');
-});
-
-// Handle expanding, shortening and the API
-app.get('/:id', shorten.expand);
-app.post('/submit', shorten.submit);
-app.post('/api/:action', api.action);
-
-// Serving statics
-app.use(minify({cache: __dirname + '/cache'})); // Minify javascript, css, etc
+// Serving statics if no route matched.
+app.use(minify());
 app.use(express.static(__dirname + '/public'));
 
-// Error handling
-app.use(function(err, req, res, next) {
-    res.status(500);
-    console.log(err.stack);
-    res.send("500 - Internal Server Error");
+// Handle 404, nothing else worked
+app.use(function(req, res) {
+    res.status(404);
+    res.render('404');
 });
 
+// Handle 500, expressjs middleware
+app.use(function(error, req, res, next) {
+    res.status(500);
+    res.render('index', {
+        error: true,
+        errorMsg: "Something went wrong! D:"
+    });
+    console.log(error.stack);
+});
+
+
 var main = function() {
+    // Attach routes
+    router.addRoutes(app);
     
     var httpServer = http.createServer(app);
-    
     var httpsServer;
     if (!devel) {
-        var httpsServer = spdy.createServer(config.setup.https, app);
+        httpsServer = spdy.createServer(config.setup.https, app);
     }
     
     var httpPort = 80;
     var httpsPort = 443;
     
     if (devel) {
-      httpPort = 8080;
+        httpPort = 8080;
     }
     
     httpServer.listen(httpPort, function() {

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <% include static/head %>
+    </head>
+    <body>
+        <div class="site-wrapper">
+            <div class="site-wrapper-inner">
+                <div class="cover-container">
+                    <div class="masthead clearfix">
+                        <div class="inner">
+                            <a href="/"><h3 class="masthead-brand"><%= title %></h3></a>
+                            <ul class="nav masthead-nav">
+                                <li><a href="/">Shortify</a></li>
+								<li><a href="/about">About</a></li>
+                                <li><a href="/contact">Contact</a></li>
+                                <li><a href="https://github.com/Pravian">Github</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="title"><h2>Terms and Privacy</h2></div>
+				<div class="well-stats well-lg">
+                
+                    <div id="termsandprivacy">
+                        <p>
+                            Pravian Systems ("Pravian", "Pravius", "we" or "us") are committed to protecting and respecting your privacy whilst providing the best service possible. This policy explains how we use any personal information that we collect about you when you use our services. It also provides a description of the terms you agree to when using our services.
+                        </p>
+                        
+                        <h3>Privacy</h3>
+                        <strong>I - What information we collect</strong><br />
+                        <p>
+                            Pravius automatically stores the links you provide when generating a pravi.us link in a secure database which isn't accesible to third-parties. The database can only be accessed remotely using a secure authentication key which is kept secret at all times. Pravius does <strong>not</strong> store any personally identifiable information (IP-address, browser, location, operating system, etc) when creating, updating, maintaining and viewing a link. Thus, we enhance the privacy of our users. However, when applying for an even shorter URL at our designated form, your email address and business URL are automatically emailed to one of our data handlers. When you contact us using our form <a href="/contact">here</a>, your email address, full name and issue is automatically emailed and processed. Third parties may be involved in the processing of these emails.
+                        </p>
+                        
+                        <strong>II - Information collected for "Big Data" and analytics</strong><br />
+                        <p>
+                            Certain third-party providers may collect certain (non-personally indentifiable information) through pravius services used for big-data collection and statistics. None of this information is able to be traced back to you.
+                        </p>
+                        
+                        <strong>III - How we share information</strong><br />
+                        <p>
+                            Pravian does not collect private information and thus doesn't share any information which may identify users. Statistics for pravi.us link may be publicly available.
+                        </p>
+                        
+                        <h3>Terms and Conditions</h3>
+                        <strong>I - Terminations</strong><br />
+                        <p>
+                            We may at any time choose to terminate your service(s) for whatever reason applicable. For example, we might be required to take down images due to a court-order or a DMCA take-down notice. If such an event occurs, we reserve the right to remove links to any infringed material. Links may also be terminated or removed down by if they violate copyright international, EU or US law.
+                        </p>
+                        
+                        <strong>II - Disclaimer</strong><br />
+                        <p>
+                            OTHER THAN AS EXPRESSLY SET OUT IN THESE TERMS OR ADDITIONAL TERMS, NEITHER SCREENSHOTTR NOR ITS SUPPLIERS OR DISTRIBUTORS MAKE ANY SPECIFIC PROMISES ABOUT THE SERVICES. FOR EXAMPLE, WE DON'T MAKE ANY COMMITMENTS ABOUT THE CONTENT WITHIN THE SERVICES, THE SPECIFIC FUNCTIONS OF THE SERVICES, OR THEIR RELIABILITY, AVAILABILITY, OR ABILITY TO MEET YOUR NEEDS. WE PROVIDE THE SERVICES "AS IS".
+                        </p>
+                        <p>
+                            SOME JURISDICTIONS PROVIDE FOR CERTAIN WARRANTIES, LIKE THE IMPLIED WARRANTY OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. TO THE EXTENT PERMITTED BY LAW, WE EXCLUDE ALL WARRANTIES.
+                        </p>
+                        
+                        <strong>III - Liability</strong><br />
+                        <p>
+                            WHEN PERMITTED BY LAW, SCREENSHOTTR, AND ITS SUPPLIERS AND DISTRIBUTORS, WILL NOT BE RESPONSIBLE FOR LOST PROFITS, REVENUES, OR DATA, FINANCIAL LOSSES OR INDIRECT, SPECIAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES.
+                        </p>
+                        <p>
+                            TO THE EXTENT PERMITTED BY LAW, THE TOTAL LIABILITY OF SCREENSHOTTR, AND ITS SUPPLIERS AND DISTRIBUTORS, FOR ANY CLAIMS UNDER THESE TERMS, INCLUDING FOR ANY IMPLIED WARRANTIES, IS LIMITED TO THE AMOUNT YOU PAID US TO USE THE SERVICES (OR, IF WE CHOOSE, TO SUPPLYING YOU THE SERVICES AGAIN).
+                        </p>
+
+                        <p>
+                            IN ALL CASES, SCREENSHOTTR, AND ITS SUPPLIERS AND DISTRIBUTORS, WILL NOT BE LIABLE FOR ANY LOSS OR DAMAGE THAT IS NOT REASONABLY FORESEEABLE.
+                        </p>
+                    </div>
+                    
+                </div>
+                
+                <% include static/footer %>
+            </div>
+        </div>
+        <% include static/javascript %>
+        <script src="/assets/js/slimscroll.min.js"></script>
+        <script>
+            $(function(){
+                $('#termsandprivacy').slimScroll({
+                    height: '450px'
+                });
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <% include static/head %>
+    </head>
+    <body>
+        <div class="site-wrapper">
+            <div class="site-wrapper-inner">
+                <div class="cover-container">
+                    <div class="masthead clearfix">
+                        <div class="inner">
+                            <a href="/"><h3 class="masthead-brand"><%- title %></h3></a>
+                            <ul class="nav masthead-nav">
+                                <li><a href="/">Shortify</a></li>
+                                <li><a href="/about">About</a></li>
+                                <li><a href="/contact">Contact</a></li>
+                                <li><a href="https://github.com/Pravian">Github</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+				
+                <div class="title"><h2>Admin Panel</h2></div>
+				<div class="well-stats well-lg">
+                
+                    <% if (typeof okay != "undefined" && okay) { %>
+                        <div class="alert alert-success">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <strong>Done!</strong> <%- okayMsg %>
+                        </div>
+                    <% } %>
+                
+					<% if (typeof error != "undefined" && error) { %>
+                        <div class="alert alert-danger">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <strong>Error!</strong> <%- errorMsg %>
+                        </div>
+					<% } %>
+
+                    Here, you can modify and view URL settings.
+                    <hr />
+                    
+                    <form class="form-horizontal" role="form" action="/admin/<%= admin %>" method="POST">
+                        <div class="form-group" id="iddiv">
+                            <label for="id" class="col-sm-2 control-label">URL ID</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="id" name="id" placeholder="e.g. 5aQ">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" id="shortdiv">
+                            <label for="short" class="col-sm-2 control-label">Add Short URL (Optional)</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="short" name="short" placeholder="e.g. DC">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" id="buttonsdiv">
+                            <div class="col-sm-offset-2 col-sm-2">
+                                <input type="submit" name="addshort" id="addshort" class="btn btn-lg btn-info" value="Add Short">
+                            </div>
+                            
+                            <div class="col-sm-2">
+                                <input type="submit" name="view" id="view" class="btn btn-lg btn-info" value="View details">
+                            </div>
+                            
+                            <div class="col-sm-2">
+                                <input type="submit" name="delete" id="delete" class="btn btn-lg btn-danger" value="Delete URL">
+                            </div>
+                        </div>
+                    </form>
+
+                    
+                </div>
+                <% include static/footer %>
+            </div>
+        </div>
+        <% include static/javascript %>
+        <% include static/contactjavascript %>
+    </body>
+</html>

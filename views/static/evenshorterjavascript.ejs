@@ -1,0 +1,22 @@
+
+<script>
+function isValidForm() {
+    var link = $('#newid').val();
+    
+    return link.length < 3 
+        && link.length > 0
+        && /^([0-9a-zA-Z].*?@([0-9a-zA-Z].*\.\w{2,4}))$/.test($('#email').val())
+        && /^(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?$/.test($('#businesslong').val());
+}
+$(function() {
+
+    $('input[type="text"]').keyup(function(event) {
+		if (isValidForm()) {
+            $('#submit').prop("disabled", false);
+        } else {
+            $('#submit').prop("disabled", true);
+        }
+	});
+
+});
+</script>

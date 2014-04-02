@@ -7,7 +7,7 @@
 a,
 a:focus,
 a:hover {
-  color: #fff;
+  color: #EAD9FF;
 }
 
 /* Custom default button */
@@ -107,7 +107,6 @@ body {
 /*
  * Cover
  */
-
 .cover {
   padding: 0 20px;
 }
@@ -116,6 +115,36 @@ body {
   font-weight: bold;
 }
 
+.well-stats {
+  min-height: 20px;
+  padding: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+  
+  background-color: #7682C8;
+  border: 1px solid #6573C1;
+  
+  border-radius: 4px;
+  
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+  
+  width: 70%;
+  
+  font-size: 15px;
+  color: #ffffff;
+  text-align: left;
+  
+  font-family: Verdana, Calibri;
+}
+
+/*
+ * Edit page
+ */
+#linkdisplay {
+  cursor: alias;
+}
 
 /*
  * Footer
@@ -127,6 +156,20 @@ body {
 
 .right {
     text-align: right;
+}
+
+#facebook {
+    width: 100px;
+    float: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#facebook div {
+    background-color: #6F96E8;
+    padding-top: 6px;
+    padding-left: 11px;
+    padding-bottom: 0px;
 }
 
 

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    </head>
+    <body>
+        Someone requested to contact you on <%= host %>.<br /><br />
+        
+        Here's the information regarding the request:<br /><br />
+        
+        Contact Reason: <%= data.option %></a><br /><br />
+        
+        Message: <%= data.message %><br /><br />
+        
+        Contact: <%= data.name %><br /><br />
+        
+        <% if (typeof data.created != "undefined" && data.created) { %>
+        I created the link: <%= data.created %><br /><br />
+        <% } %>
+        
+        Contact Email: <%= data.email %><br /><br />
+        
+        (Message sent by Pravi.us Node.js APP)
+    </body>
+</html>
