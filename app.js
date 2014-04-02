@@ -24,7 +24,8 @@ app.set('view engine', 'html');
 app.locals(config.appinfo);
 app.locals({
     host: config.setup.host,
-    getLength: db.getLength
+    getLength: db.getLength,
+    getRedirects: db.getRedirects
 });
 
 // Setup params

@@ -44,6 +44,9 @@ var dbconfig = new Config();
 // Amount of generated links; should be populated with setup();
 var length = -1;
 
+// Amount of redirected users; should be populated with setup();
+var redirects = -1;
+
 // Helper methods for prefixes
 function getName(id) {
     return "link_" + id;
@@ -158,7 +161,6 @@ function shorten(long, callback) {
                     throw new Error("No response received: " + err);
                 }
                 
-                dbconfig.get('redis').incr('linksgenerated');
                 length++;
                 
                 var urlName = getUrl(long);
@@ -399,9 +401,27 @@ function increment(id, callback) {
             callback(null, response);
         });
         
+        dbconfig.get('redis').incr('redirects');
+        redirects++;
+        
         callback();
     });
 };
+
+function getRedirects() {
+    if (redirects != -1) {
+        return redirects;
+    }
+    
+    dbconfig.get('redis').get('redirects', function (err, response) {
+        if (err) {
+            return util.error(err);
+        }
+        
+        redirects = Number(response);
+        console.log("Users redirected: " + redirects);
+    });
+}
 
 function getLength() {
     if (length != -1) {
@@ -429,6 +449,7 @@ function setup() {
     dbconfig.set('expiretime', config.redis.expiretime);
 
     getLength();
+    getRedirects();
 }
 
 setup();
@@ -438,6 +459,7 @@ db.config = config;
 db.shorten = shorten;
 db.expand = expand;
 db.getLength = getLength;
+db.getRedirects = getRedirects;
 db.setup = setup;
 db.idExists = idExists;
 db.renameAndPut = renameAndPut;
